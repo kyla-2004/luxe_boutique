@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.jpg" alt="Boutique Luxe Logo" style="height: 40px;">
+                Boutique Luxe
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Details -->
+    <div class="container mt-5">
+        <h2 class="text-center section-title">Product Details</h2>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img id="product-img" src="" class="img-fluid animated-img">
+            </div>
+            <div class="col-md-6">
+                <h3 id="product-name">Product Name</h3>
+                <p id="product-desc">Full detailed description of the product.</p>
+                <p id="product-price" class="fw-bold text-success">₱0.00</p>
+                <button id="add-to-cart" class="btn btn-primary">Add to Cart</button>
+                <a href="index.html" class="btn btn-secondary">Back to Shop</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('product');
+
+        const productData = {
+            1: { name: "Basic Top & Shorts", img: "BASICTOPS.jpg", desc: "A versatile set of basic tops in earthy tones and simple designs, perfect for casual wear.", price: "₱250" },
+            2: { name: "Black Dress", img: "LONGBLACKDRESS.jpg", desc: "A sleek and elegant long black dress, perfect for evening events or a night out.", price: "₱350" },
+            3: { name: "Bikini Top", img: "BIKINI TOP.jpg", desc: "A stylish and trendy bikini-style crop top with lace-up details and a flattering fit.", price: "₱150" },
+            4: { name: "Brown Casual Dress", img: "BROWN_DRESS.jpg", desc: "A classy long-sleeve brown dress with a pleated skirt, ideal for both formal and casual settings.", price: "₱200" },
+            5: { name: "Denim Tube", img: "DENIM TUBE.jpg", desc: "A chic and edgy denim tube dress with button details, giving a modern, street-style vibe.", price: "₱150" },
+            6: { name: "Denim Skirt", img: "DENIMSKIRT.jpg", desc: "A high-waisted denim skirt with a front slit, offering a casual yet fashionable look.", price: "₱280" },
+            7: { name: "Polo Dress", img: "POLO DRESS.jpg", desc: "A simple and sophisticated polo-style dress in a neutral tone, perfect for a minimalist yet stylish outfit.", price: "₱400" },
+            8: { name: "Trousers", img: "TROUSERS.jpg", desc: "A set of stylish high-waisted trousers in black, brown, and olive green—great for work or casual wear.", price: "₱180" },
+            9: { name: "Wide Leg Pants", img: "WIDELEG PANTS.jpg", desc: "Comfortable and fashionable wide-leg jeans, suitable for casual and street-style outfits.", price: "₱230" },
+            10: { name: "Yellow Casual Dress", img: "YELLOW DRESS.jpg", desc: "A light and breezy yellow dress with delicate details, ideal for a summer day.", price: "₱250" }
+        };
+
+        // Get product data based on the URL parameter
+        if (productData[productId]) {
+            document.getElementById("product-img").src = productData[productId].img;
+            document.getElementById("product-name").textContent = productData[productId].name;
+            document.getElementById("product-desc").textContent = productData[productId].desc;
+            document.getElementById("product-price").textContent = productData[productId].price;
+        }
+
+        // Handle Add to Cart
+        document.getElementById("add-to-cart").addEventListener("click", () => {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const product = productData[productId];
+            if (product) {
+                cart.push(product);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert(`${product.name} has been added to your cart!`);
+                updateCartCount();
+            }
+        });
+
+        // Update cart count in navigation bar
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        // Initial update of cart count
+        updateCartCount();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

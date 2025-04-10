@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Luxe</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.jpg" alt="Boutique Luxe Logo" style="height: 40px;">
+                Boutique Luxe
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Table -->
+    <div class="container mt-5">
+        <h2 class="text-center section-title">Our Latest Collection</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table-body">
+                    <script>
+                        const products = [
+                            { id: 1, name: "Basic Top & Shorts", price: "₱250", img: "BASICTOPS.jpg", desc: "Casual earthy-toned tops." },
+                            { id: 2, name: "Black Dress", price: "₱350", img: "LONGBLACKDRESS.jpg", desc: "Sleek evening dress." },
+                            { id: 3, name: "Bikini Top", price: "₱150", img: "BIKINI TOP.jpg", desc: "Lace-up crop top." },
+                            { id: 4, name: "Brown Casual Dress", price: "₱200", img: "BROWN_DRESS.jpg", desc: "Pleated long-sleeve dress." },
+                            { id: 5, name: "Denim Tube", price: "₱150", img: "DENIM TUBE.jpg", desc: "Edgy denim tube dress." },
+                            { id: 6, name: "Denim Skirt", price: "₱280", img: "DENIMSKIRT.jpg", desc: "High-waisted slit skirt." },
+                            { id: 7, name: "Polo Dress", price: "₱400", img: "POLO DRESS.jpg", desc: "Minimalist polo dress." },
+                            { id: 8, name: "Trousers", price: "₱180", img: "TROUSERS.jpg", desc: "High-waisted work trousers." },
+                            { id: 9, name: "Wide Leg Pants", price: "₱230", img: "WIDELEG PANTS.jpg", desc: "Casual wide-leg jeans." },
+                            { id: 10, name: "Yellow Casual Dress", price: "₱250", img: "YELLOW DRESS.jpg", desc: "Breezy summer dress." }
+                        ];
+
+                        // Update cart count on page load
+                        updateCartCount();
+
+                        // Update cart count
+                        function updateCartCount() {
+                            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                            document.getElementById('cart-count').innerText = cart.length;
+                        }
+
+                        // Populate the product table and add 'View' button
+                        products.forEach(product => {
+                            document.write(`
+                                <tr>
+                                    <td><img src="${product.img}" class="img-fluid rounded" style="max-width: 100px;"></td>
+                                    <td>${product.name}</td>
+                                    <td class="fw-bold text-success">${product.price}</td>
+                                    <td>${product.desc}</td>
+                                    <td>
+                                        <a href="product.html?product=${product.id}" class="btn btn-primary">View</a>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    </script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
